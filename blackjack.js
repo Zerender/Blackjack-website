@@ -137,9 +137,9 @@ function hit(){
 
 function stand() {
     canHit = false;
-    dealerTurn();
-    document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     if(!endGame) {
+        dealerTurn();
+        document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
         if (playerSum > dealerSum) {
             playerWin();
         } else if (playerSum < dealerSum) {
