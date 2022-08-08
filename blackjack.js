@@ -95,7 +95,7 @@ function dealDealer() {
     cardImg.src = "./Card images/" + card + ".png";
     dealerSum += getValue(card);
     dealerAceCount += checkAce(card);
-    dealerSum = reduceAce(playerSum, playerAceCount);
+    dealerSum = reduceAce(dealerSum, dealerAceCount);
     document.getElementById("dealer-cards").append(cardImg);
 }
 
