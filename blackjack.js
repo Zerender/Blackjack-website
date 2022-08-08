@@ -95,7 +95,10 @@ function dealDealer() {
     cardImg.src = "./Card images/" + card + ".png";
     dealerSum += getValue(card);
     dealerAceCount += checkAce(card);
-    dealerSum = reduceAce(dealerSum, dealerAceCount);
+    if(dealerSum > 21 && dealerAceCount > 0) {
+        dealerSum -= 10;
+        dealerAceCount--;
+    }
     document.getElementById("dealer-cards").append(cardImg);
 }
 
@@ -105,7 +108,12 @@ function dealPlayer() {
     cardImg.src = "./Card images/" + card + ".png";
     playerSum += getValue(card);
     playerAceCount += checkAce(card);
-    playerSum = reduceAce(playerSum, playerAceCount);
+    console.log(playerSum);
+    console.log(playerAceCount);
+    if(playerSum > 21 && playerAceCount > 0) {
+        playerSum -= 10;
+        playerAceCount--;
+    }
     document.getElementById("player-cards").append(cardImg);
 }
 
@@ -136,18 +144,21 @@ function stand() {
 }
 
 function playerWin() {
+    document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("player-sum").innerText = playerSum;
     document.getElementById("results").innerText = "You Win!";
 }
 
 function dealerWin() {
+    document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("player-sum").innerText = playerSum;
     document.getElementById("results").innerText = "You Lose!";
 }
 
 function tie() {
+    document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("player-sum").innerText = playerSum;
     document.getElementById("results").innerText = "You Tie!";
@@ -167,7 +178,9 @@ function getValue(card) {
 }
 
 function checkAce(card) {
-    if (card[0] == "ace") {
+    let data = card.split("_");
+    let val = data[0];
+    if (val == "ace") {
         return 1;
     }
     return 0;
