@@ -12,6 +12,8 @@ var canHit = true; //must be true to hit
 var deckNum = 1; //set the number of decks to play
 var stand17 = true; //sets whether to hit or stand on soft 17;
 
+var endGame = false;
+
 
 
 window.onload = function() {
@@ -137,18 +139,21 @@ function stand() {
     canHit = false;
     dealerTurn();
     document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
-
-    if (playerSum > dealerSum) {
-        playerWin();
-    } else if (playerSum < dealerSum) {
-        dealerWin();
-    } else {
-        tie();
+    if(!endGame) {
+        if (playerSum > dealerSum) {
+            playerWin();
+        } else if (playerSum < dealerSum) {
+            dealerWin();
+        } else {
+            tie();
+        }    
     }
-
+    
 }
 
 function playerWin() {
+    canHit = false;
+    endGame = true;
     document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("player-sum").innerText = playerSum;
@@ -156,6 +161,8 @@ function playerWin() {
 }
 
 function dealerWin() {
+    canHit = false;
+    endGame = true;
     document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("player-sum").innerText = playerSum;
@@ -163,6 +170,8 @@ function dealerWin() {
 }
 
 function tie() {
+    canHit = false;
+    endGame = true;
     document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("player-sum").innerText = playerSum;
