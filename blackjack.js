@@ -79,6 +79,10 @@ function dealerTurn() {
         dealDealer();
     } 
     while (dealerSum < 17) {
+    /*    setTimeout(function () {
+            dealDealer();
+        }, 1000); 
+        */
         dealDealer();
     }
 
