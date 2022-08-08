@@ -115,6 +115,7 @@ function dealPlayer() {
         playerAceCount--;
     }
     document.getElementById("player-cards").append(cardImg);
+    document.getElementById("player-sum").innerText = playerSum;
 }
 
 function hit(){

@@ -6,14 +6,14 @@ body {
 }
 
 #dealer-cards img {
-    height:  175px;
-    width: 125px;
+    height:  280px;
+    width: 200px;
     margin: 1px;
 }
 
 #player-cards img {
-    height:  175px;
-    width: 125px;
+    height:  280px;
+    width: 200px;
     margin: 1px;
 }
 
@@ -23,7 +23,7 @@ body {
     font-size: 20px;
 }
 
-#stay {
+#stand {
     width: 100px;
     height: 50px;
     font-size: 20px;
@@ -35,7 +35,7 @@ body {
     font-size: 20px;
 }
 
-#surrender {
+#surr {
     width: 100px;
     height: 50px;
     font-size: 20px;
