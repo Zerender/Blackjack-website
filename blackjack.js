@@ -10,17 +10,20 @@ var deck;
 var canHit = true; //must be true to hit
 
 var deckNum = 1; //set the number of decks to play
-var stand17 = true; //sets whether to hit or stand on soft 17;
+var stand17 = true; //sets whether to hit or stand on soft 17
 
 var endGame = false;
 
-
+var message; //message to print when you win/lose
 
 window.onload = function() {
+    playGame();
+}
+
+function playGame() {
     buildDeck();
     shuffle();
     startGame();
-
 }
 
 function buildDeck() {
@@ -38,7 +41,7 @@ function buildDeck() {
 
 function shuffle() {
     for (let i = 0; i< deck.length; i++) {
-        let j = Math.floor(Math.random() * deck.length); // sets j to 0-52
+        let j = Math.floor(Math.random() * deck.length); // sets j to 0-51
         let temp = deck[i];
         deck[i] = deck[j];
         deck[j] = temp;
@@ -56,19 +59,18 @@ function startGame() {
     }
 
     if (playerSum == 21 && dealerSum != 21) {
-        playerWin();
+        message = "Blackjack!";
+            gameOver();
     }
 
     if (dealerSum == 21 && playerSum != 21) {
-        dealerWin();
-    }
-
-    if (playerSum == 21 && dealerSum != 21) {
-        playerWin();
+        message = "Dealer Blackjack, You Lose!";
+            gameOver();
     }
 
     if (dealerSum == 21 && playerSum == 21) {
-        tie();
+        message = "Tie!";
+            gameOver();
     }
 
 
@@ -89,7 +91,8 @@ function dealerTurn() {
     }
 
     if (dealerSum > 21) {
-        playerWin();
+        message = "Dealer Busts, You Win!";
+        gameOver();
     }
 
     
@@ -131,7 +134,8 @@ function hit(){
 
     if (reduceAce(playerSum, playerAceCount) > 21) {
         canHit = false;
-        dealerWin();
+        message = "You Bust!";
+            gameOver();
     }
 }
 
@@ -140,42 +144,29 @@ function stand() {
     if(!endGame) {
         dealerTurn();
         document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
-        if (playerSum > dealerSum) {
-            playerWin();
-        } else if (playerSum < dealerSum) {
-            dealerWin();
-        } else {
-            tie();
-        }    
+        if(dealerSum < 22) {
+            if (playerSum > dealerSum) {
+                message = "You Win!";
+                gameOver();
+            } else if (playerSum < dealerSum) {
+                message = "You Lose!";
+                gameOver();
+            } else {
+                message = "Tie!";
+                gameOver();
+            }    
+        }
     }
     
 }
 
-function playerWin() {
+function gameOver() {
     canHit = false;
     endGame = true;
     document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("player-sum").innerText = playerSum;
-    document.getElementById("results").innerText = "You Win!";
-}
-
-function dealerWin() {
-    canHit = false;
-    endGame = true;
-    document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
-    document.getElementById("dealer-sum").innerText = dealerSum;
-    document.getElementById("player-sum").innerText = playerSum;
-    document.getElementById("results").innerText = "You Lose!";
-}
-
-function tie() {
-    canHit = false;
-    endGame = true;
-    document.getElementById("hidden").src = "./Card images/" + hidden + ".png";
-    document.getElementById("dealer-sum").innerText = dealerSum;
-    document.getElementById("player-sum").innerText = playerSum;
-    document.getElementById("results").innerText = "You Tie!";
+    document.getElementById("results").innerText = message;
 }
 
 
@@ -207,3 +198,4 @@ function reduceAce(sum, aceCount) {
     }
     return sum;
 }
+
